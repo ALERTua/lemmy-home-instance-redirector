@@ -22,6 +22,7 @@ Lemmy Home Instance Redirector is a Firefox add-on (Manifest V3). It opens Lemmy
 | `src/icons/icon.svg` | the icon |
 | `tools/addon_test.py` | end-to-end scenarios in a driven Firefox |
 | `tools/screenshots.py` | makes `docs/screenshots/` |
+| `tools/render_icon.py` | renders `src/icons/icon.svg` into `docs/icon-128.png`, the PNG icon of the catalog listing |
 | `web-ext-config.mjs` | source folder `src/` and artifact folder `dist/` for web-ext |
 | `.github/workflows/ci.yml` | lint with warnings as errors, and build |
 
@@ -37,6 +38,7 @@ Use the recipes of `justfile`. Run each command from the repository root. `just 
 - `just test`: after each change of the behavior. It needs Firefox. `tools/firefox.py` starts it with a clean temporary profile.
 - `uv run --python 3.13 tools/addon_test.py dist/<file>.xpi`: to test a signed `.xpi` as a permanent add-on.
 - `just screenshots`: after a change that the screenshots show.
+- `just icon`: after a change of `src/icons/icon.svg`. Then the user uploads `docs/icon-128.png` in the Developer Hub.
 - `just sign` and `just sign-unlisted`: only the user runs them. See the agent boundaries.
 
 ## Code style

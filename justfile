@@ -27,6 +27,10 @@ test:
 screenshots:
     uv run --python 3.13 tools/screenshots.py
 
+# Render src/icons/icon.svg into docs/icon-128.png for the listing on addons.mozilla.org
+icon:
+    uv run --python 3.13 tools/render_icon.py
+
 # Set the version in package.json, package-lock.json and src/manifest.json, without a git commit
 version VERSION:
     npm version {{ VERSION }} --no-git-tag-version --ignore-scripts; node tools/sync-version.mjs

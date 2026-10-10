@@ -22,9 +22,13 @@ SIGN_COMMAND = re.compile(
 )
 
 
+# The body of a heredoc is data, for example a commit message, so the check skips it.
+HEREDOC = re.compile(r"<<-?\s*(['\"]?)(\w+)\1[^\n]*\n.*?^\s*\2\s*$", re.DOTALL | re.MULTILINE)
+
+
 def main():
     command = json.load(sys.stdin).get("tool_input", {}).get("command", "")
-    if SIGN_COMMAND.search(command):
+    if SIGN_COMMAND.search(HEREDOC.sub("<<heredoc", command)):
         print(
             "Blocked: this command sends the add-on to addons.mozilla.org. "
             "Only the user runs it, in a terminal outside Claude Code, after the approval of each value. "

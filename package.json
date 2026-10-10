@@ -15,7 +15,7 @@
     "build": "web-ext build",
     "start": "web-ext run",
     "sign": "node --env-file=.env node_modules/web-ext/bin/web-ext.js sign --channel unlisted",
-    "sign:listed": "node --env-file=.env node_modules/web-ext/bin/web-ext.js sign --channel listed --amo-metadata amo-metadata.json"
+    "sign:listed": "node --env-file=.env node_modules/web-ext/bin/web-ext.js sign --channel listed --amo-metadata amo-metadata.json --approval-timeout 0"
   },
   "devDependencies": {
     "web-ext": "10.7.0"

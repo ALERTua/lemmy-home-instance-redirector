@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --no-project python \"$(git rev-parse --show-toplevel)/.claude/hooks/block_sign.py\""
+          }
+        ]
+      }
+    ]
+  }
+}

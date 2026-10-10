@@ -2,3 +2,10 @@ node_modules/
 dist/
 .env
 .amo-upload-uuid
+
+# Claude Code: only the project memory, the shared settings and their hooks are shared.
+.claude/*
+!.claude/memory/
+!.claude/settings.json
+!.claude/hooks/
+plans/

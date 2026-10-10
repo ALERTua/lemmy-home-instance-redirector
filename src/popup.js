@@ -5,6 +5,9 @@ const input = document.getElementById('host');
 const save = document.getElementById('save');
 const status = document.getElementById('status');
 
+// The manifest holds the address of the repository, so it lives in one place.
+document.getElementById('source').href = browser.runtime.getManifest().homepage_url;
+
 function show(kind, text) {
   status.className = `status ${kind}`;
   status.textContent = text;

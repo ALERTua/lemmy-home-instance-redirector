@@ -1,0 +1,22 @@
+{
+  "categories": {
+    "firefox": ["social-communication"],
+    "android": ["social-communication"]
+  },
+  "summary": {
+    "en-US": "Redirects Lemmy and PieFed posts, comments, communities and users on your home Lemmy instance"
+  },
+  "description": {
+    "en-US": "Redirects Lemmy and PieFed posts, comments, communities and users from any server to your home Lemmy instance, where you are logged in and can vote, comment and subscribe at once.\n\n**Features**\n\n- Works past the login page of private Lemmy servers and of PieFed servers that hide their content from guests.\n- Leaves other sites alone. It looks at the page itself and sends no request for a site that is not Lemmy or PieFed.\n- Does not redirect when you come from your home instance. To open one page without a redirect, add #noredirect to its address.\n- Needs no login data. Its requests carry no cookies.\n\n**Setup**\n\nAfter the installation, the settings page opens. Enter your home instance, for example sh.itjust.works. The home instance must be a Lemmy server.\n\nSource code, privacy policy and help: https://github.com/ALERTua/lemmy-home-instance-redirector"
+  },
+  "homepage": {
+    "en-US": "https://github.com/ALERTua/lemmy-home-instance-redirector"
+  },
+  "requires_payment": false,
+  "version": {
+    "license": "GPL-3.0-only",
+    "release_notes": {
+      "en-US": "First public version."
+    }
+  }
+}

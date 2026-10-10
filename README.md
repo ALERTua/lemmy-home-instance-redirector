@@ -5,7 +5,9 @@
 
 A Firefox add-on that opens Lemmy and PieFed links on your home Lemmy instance, where you are logged in and can vote, comment and subscribe.
 
-![A post from feddit.uk opens on the home instance](docs/screenshots/redirect-light.png)
+[<img src="docs/get-the-addon.svg" alt="Get the add-on for Firefox" height="60">](https://addons.mozilla.org/firefox/addon/lemmy-home-instance-redirector/)
+
+![The toolbar popup with the home instance sh.itjust.works](docs/screenshots/toolbar-popup.png)
 
 ## Features
 
@@ -17,7 +19,7 @@ A Firefox add-on that opens Lemmy and PieFed links on your home Lemmy instance, 
 
 ## Settings
 
-After the installation, the add-on opens its settings page. Enter the host name of your home instance, for example `sh.itjust.works`. The add-on checks that the server answers as Lemmy before it saves the value. Until you save a home instance, the add-on does not redirect.
+After the installation, the add-on opens its settings page. Enter the host name of your home instance, for example `sh.itjust.works`. The home instance must be a Lemmy server. Links from PieFed servers work, but a PieFed server cannot be the home instance. The add-on checks that the server answers as Lemmy before it saves the value. Until you save a home instance, the add-on does not redirect.
 
 | Settings page | Toolbar popup |
 |---|---|
@@ -48,18 +50,27 @@ npm ci
 | `npm run start` | Starts Firefox with the add-on from `src/` and reloads it after each change. |
 | `npm run lint` | Checks the add-on with the rules of addons.mozilla.org. |
 | `npm run build` | Packs `src/` into a `.zip` file in `dist/`. |
-| `npm run sign` | Signs the add-on as unlisted on addons.mozilla.org and puts the `.xpi` file into `dist/`. |
+| `npm run sign:listed` | Sends a new version to the catalog of addons.mozilla.org with the listing data from `amo-metadata.json`. The catalog publishes it after its checks. |
+| `npm run sign` | Signs the add-on as unlisted for self-distribution and puts the `.xpi` file into `dist/`. |
+
+The `justfile` gives the same tasks as [just](https://github.com/casey/just) recipes, for example `just lint`, `just test`, `just version 0.1.3` and `just sign`. `just help` lists them.
 
 ### Sign a release
 
 1. Copy `.env.example` to `.env`, and fill in the API key from https://addons.mozilla.org/developers/addon/api/key/. Never commit `.env`.
-2. Increase `version` in `src/manifest.json` and in `package.json`. addons.mozilla.org refuses a version that it already signed.
-3. Add the changes to `CHANGELOG.md`.
-4. Run `npm run sign`.
+2. Run `npm version <x.y.z>`. It changes `package.json`, copies the version into `src/manifest.json`, and makes a git commit with a tag. addons.mozilla.org refuses a version that it already signed.
+3. Add the changes to `CHANGELOG.md`, and the release notes to `version.release_notes` in `amo-metadata.json`.
+4. Run `just sign` or `npm run sign:listed`.
 
 ### End-to-end tests
 
-`tools/addon_test.py` installs the add-on into Firefox, opens live Lemmy and PieFed pages and prints PASS or FAIL for each scenario. `tools/screenshots.py` makes the screenshots in `docs/screenshots/`. Both scripts drive Firefox through Selenium with a helper module of the author's machine, so they do not run elsewhere without changes.
+`tools/addon_test.py` installs the add-on into Firefox, opens live Lemmy and PieFed pages and prints PASS or FAIL for each scenario. `tools/screenshots.py` makes the screenshots in `docs/screenshots/`. Both scripts start Firefox through Selenium with a clean temporary profile. You need Firefox and [uv](https://docs.astral.sh/uv/).
+
+```bash
+uv run --python 3.13 tools/addon_test.py
+```
+
+Set `FIREFOX_BIN` to use another Firefox binary, and `FIREFOX_HEADLESS=1` to hide the window.
 
 ## License
 

@@ -6,25 +6,24 @@
 
 Usage: uv run --python 3.13 tools/screenshots.py
 
-The script installs src/ as a temporary add-on in the driven Firefox. The screenshots use
-lemmy.ml as the home instance: it has no Cloudflare bot check, and the profile has no login there.
+The script installs src/ as a temporary add-on in a new Firefox with a clean profile. The screenshots use
+lemmy.ml as the home instance, because it has no Cloudflare bot check.
 WebDriver cannot open the toolbar popup, so the script shows the popup page in the size of the popup.
+toolbar-popup.png is a manual screenshot of the real popup, and this script does not make it.
 """
 
 import base64
-import os
 import sys
 import time
 from pathlib import Path
 
-sys.path.insert(0, os.path.expanduser("~/.claude/tools"))
-import driven_firefox as ff  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import firefox as ff  # noqa: E402
 from selenium.webdriver.common.by import By  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs" / "screenshots"
 HOME = "lemmy.ml"
-POST = "https://feddit.uk/post/56670482"
 
 
 def set_dark(driver, dark):
@@ -36,16 +35,6 @@ def set_dark(driver, dark):
         dark,
     )
     time.sleep(1)
-
-
-def save_window(driver, name):
-    """Save the whole browser window, with the toolbar and the address bar."""
-    # Under WebDriver, Firefox paints the address bar with stripes and shows a robot icon.
-    ff.chrome(driver, "document.documentElement.removeAttribute('remotecontrol')")
-    with driver.context(driver.CONTEXT_CHROME):
-        png = driver.get_screenshot_as_png()
-    (OUT / name).write_bytes(png)
-    print("saved", name)
 
 
 def save_page(driver, name):
@@ -103,23 +92,6 @@ def main():
         for dark in (False, True):
             set_dark(driver, dark)
             save_popup(driver, settings_url, f"popup-{'dark' if dark else 'light'}.png")
-
-        # The redirect: a post on a private Lemmy server opens on the home instance.
-        driver.set_window_rect(width=1280, height=800)
-        ff.chrome(
-            driver,
-            "const id = arguments[0].toLowerCase().replace(/[^a-z0-9_-]/g, '_') + '-browser-action';"
-            "window.CustomizableUI.addWidgetToArea(id, window.CustomizableUI.AREA_NAVBAR);",
-            addon_id,
-        )
-        for dark in (False, True):
-            set_dark(driver, dark)
-            driver.get(POST)
-            deadline = time.time() + 20
-            while not driver.current_url.startswith(f"https://{HOME}/post/") and time.time() < deadline:
-                time.sleep(0.5)
-            time.sleep(4)
-            save_window(driver, f"redirect-{'dark' if dark else 'light'}.png")
 
 
 if __name__ == "__main__":

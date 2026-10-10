@@ -2,7 +2,7 @@
 # requires-python = ">=3.11"
 # dependencies = ["selenium==4.49.*"]
 # ///
-"""Install the add-on in the driven Firefox and run the scenarios.
+"""Install the add-on in a new Firefox with a clean profile and run the scenarios.
 
 Usage: uv run --python 3.13 tools/addon_test.py [path to a signed .xpi]
 
@@ -14,13 +14,12 @@ Each scenario opens a live page and checks where the browser ends up.
 The add-on sends its requests without cookies, so a redirect needs no login on the home instance.
 """
 
-import os
 import sys
 import time
 from pathlib import Path
 
-sys.path.insert(0, os.path.expanduser("~/.claude/tools"))
-import driven_firefox as ff  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import firefox as ff  # noqa: E402
 from selenium.webdriver.common.action_chains import ActionChains  # noqa: E402
 from selenium.webdriver.common.by import By  # noqa: E402
 
@@ -152,6 +151,11 @@ def run_first_start_cases(driver, addon_id, work_tab):
     value = driver.find_element(By.ID, "host").get_attribute("value")
     ok = in_tab and value == "" and hint == "Example: sh.itjust.works" and "Redirects are off" in text
     print(f"{'PASS' if ok else 'FAIL'}  Settings tab is empty with an example: tab layout {in_tab}, hint {hint!r}, {text!r}")
+    results.append(ok)
+
+    source = driver.find_element(By.ID, "source").get_attribute("href")
+    ok = source == "https://github.com/ALERTua/lemmy-home-instance-redirector"
+    print(f"{'PASS' if ok else 'FAIL'}  Settings page links to the repository: {source!r}")
     results.append(ok)
 
     field = driver.find_element(By.ID, "host")

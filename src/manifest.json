@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Lemmy Home Instance Redirector",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Opens Lemmy and PieFed links on your home Lemmy instance.",
   "homepage_url": "https://github.com/ALERTua/lemmy-home-instance-redirector",
   "browser_specific_settings": {

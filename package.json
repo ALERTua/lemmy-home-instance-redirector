@@ -1,18 +1,21 @@
 {
   "name": "lemmy-home-instance-redirector",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "Firefox add-on that opens Lemmy and PieFed links on your home Lemmy instance.",
-  "license": "GPL-3.0-or-later",
+  "license": "GPL-3.0-only",
   "type": "module",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "lint": "web-ext lint",
+    "version": "node tools/sync-version.mjs && git add src/manifest.json",
+    "check-version": "node tools/sync-version.mjs --check",
+    "lint": "web-ext lint --warnings-as-errors",
     "build": "web-ext build",
     "start": "web-ext run",
-    "sign": "node --env-file=.env node_modules/web-ext/bin/web-ext.js sign --channel unlisted"
+    "sign": "node --env-file=.env node_modules/web-ext/bin/web-ext.js sign --channel unlisted",
+    "sign:listed": "node --env-file=.env node_modules/web-ext/bin/web-ext.js sign --channel listed --amo-metadata amo-metadata.json"
   },
   "devDependencies": {
     "web-ext": "10.7.0"

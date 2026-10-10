@@ -4,6 +4,13 @@ All notable changes to this project are documented in this file. The format foll
 
 ## [Unreleased]
 
+## [0.1.2]
+
+### Added
+
+- Link to the GitHub repository on the settings page.
+- Listing on addons.mozilla.org.
+
 ## [0.1.1]
 
 ### Changed

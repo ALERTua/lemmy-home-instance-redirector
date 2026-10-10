@@ -10,6 +10,7 @@ metadata:
 - The values from `src/manifest.json` are the ID, the name, the description, the version, the homepage and the icon. The permissions, the data collection declaration and the minimum Firefox version are values too.
 - The values from `amo-metadata.json` are the categories, the summary, the full description, the homepage, `requires_payment`, the license and the release notes. The channel is a value too.
 - A listed version goes public only after the review of Mozilla, which takes longer than the 15 minutes that web-ext waits by default. So `sign:listed` has `--approval-timeout 0`: web-ext sends the version and stops without waiting. The Developer Hub shows the review status, for example "Awaiting Review".
+- A second `just sign` for a version that is already sent gets `400` with "This upload has already been submitted". A new submission needs a new version.
 - addons.mozilla.org refuses a version that it already signed. A deleted version keeps its number.
 - After the owner deletes an add-on on addons.mozilla.org, Firefox soft-blocks its ID. The add-on stops about 30 seconds after the start of Firefox, when Firefox loads the blocklist: `blocklistState` is 1. A temporary add-on with that ID stops too. The ID `lemmy-home-redirect@alexe` is blocked in this way.
 - web-ext writes `.amo-upload-uuid` into `src/` during a signature. `.gitignore` keeps it out of git, and web-ext leaves dot files out of the package.

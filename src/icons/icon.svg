@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- Ears of the lemming behind the roof -->
+  <circle cx="12" cy="14.5" r="5.5" fill="#0f766e"/>
+  <circle cx="36" cy="14.5" r="5.5" fill="#0f766e"/>
+  <!-- The house is the head: roof and walls -->
+  <path d="M24 6 L42 21 V39.5 Q42 43 38.5 43 H9.5 Q6 43 6 39.5 V21 Z"
+        fill="#0d9488" stroke="#0d9488" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Eyes -->
+  <circle cx="17.5" cy="25" r="4.2" fill="#fff"/>
+  <circle cx="30.5" cy="25" r="4.2" fill="#fff"/>
+  <circle cx="18.3" cy="25.6" r="2.1" fill="#042f2e"/>
+  <circle cx="31.3" cy="25.6" r="2.1" fill="#042f2e"/>
+  <!-- Nose -->
+  <ellipse cx="24" cy="31" rx="2.3" ry="1.6" fill="#042f2e"/>
+  <!-- The door is also the two front teeth -->
+  <rect x="20" y="34" width="8" height="10.5" rx="1.6" fill="#fff"/>
+  <rect x="23.4" y="34" width="1.2" height="10.5" fill="#0d9488"/>
+</svg>

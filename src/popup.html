@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lemmy Home Instance Redirector</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="card">
+    <header>
+      <img src="icons/icon.svg" alt="" width="32" height="32">
+      <div>
+        <h1>Home instance</h1>
+        <p>Lemmy and PieFed links open here</p>
+      </div>
+    </header>
+
+    <form id="form" autocomplete="off">
+      <label for="host">Your Lemmy server</label>
+      <div class="field">
+        <input id="host" type="text" spellcheck="false" placeholder="Server name" required>
+        <button id="save" type="submit">Save</button>
+      </div>
+      <p class="hint">Example: <code>sh.itjust.works</code></p>
+      <p id="status" class="status" role="status"></p>
+    </form>
+  </main>
+
+  <script src="lib.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

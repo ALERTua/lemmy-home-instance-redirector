@@ -1,0 +1,164 @@
+:root {
+  --bg: #ffffff;
+  --fg: #15141a;
+  --muted: #5b5b66;
+  --border: #cfcfd8;
+  --field: #f9f9fb;
+  --accent: #0d9488;
+  --accent-fg: #ffffff;
+  --ok: #0d9488;
+  --error: #d7264c;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #2b2a33;
+    --fg: #fbfbfe;
+    --muted: #b0b0bb;
+    --border: #52525e;
+    --field: #1c1b22;
+    --accent: #2dd4bf;
+    --accent-fg: #042f2e;
+    --ok: #2dd4bf;
+    --error: #ff6b8a;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 320px;
+  margin: 0;
+  padding: 16px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/1.4 system-ui, sans-serif;
+}
+
+/* The same page opens as a settings tab after the installation and from about:addons. */
+body.tab {
+  width: auto;
+  min-height: 100vh;
+  padding: 12vh 16px 16px;
+  background: var(--field);
+}
+
+body.tab .card {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+}
+
+header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.field {
+  display: flex;
+  gap: 8px;
+}
+
+input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--field);
+  color: var(--fg);
+  font: inherit;
+}
+
+input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+  border-color: transparent;
+}
+
+button {
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.hint {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+code {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
+
+.status {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 18px;
+  margin: 10px 0 0;
+  color: var(--muted);
+}
+
+.status::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.status.ok::before {
+  background: var(--ok);
+}
+
+.status.error {
+  color: var(--error);
+}
+
+.status.error::before {
+  background: var(--error);
+}
+
+.status:empty::before {
+  display: none;
+}

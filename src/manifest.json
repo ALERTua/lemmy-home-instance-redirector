@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Lemmy Home Instance Redirector",
+  "version": "0.1.1",
+  "description": "Opens Lemmy and PieFed links on your home Lemmy instance.",
+  "homepage_url": "https://github.com/ALERTua/lemmy-home-instance-redirector",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "lemmy-home-instance-redirector@alert",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["browsingActivity"]
+      }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
+    }
+  },
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  },
+  "action": {
+    "default_title": "Home instance",
+    "default_icon": "icons/icon.svg",
+    "default_popup": "popup.html"
+  },
+  "options_ui": {
+    "page": "popup.html",
+    "open_in_tab": true
+  },
+  "permissions": ["webRequest", "storage"],
+  "host_permissions": ["https://*/*"],
+  "background": {
+    "scripts": ["lib.js", "background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/post/*", "https://*/comment/*", "https://*/c/*", "https://*/u/*"],
+      "js": ["lib.js", "content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
